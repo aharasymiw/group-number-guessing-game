@@ -1,3 +1,7 @@
+// This is where we store our 'state'.
+// We aren't exporting this directly.
+// Instead, we will create special 'getter' and 'setter' functions, and export those.
+// Other javascript files can use those getter and setter functions to interact with the state.
 let guessHistory = {
     rounds: 0,
     playerOne: [],
@@ -5,6 +9,8 @@ let guessHistory = {
     playerThree: [],
 };
 
+// Think of it as a 'getter' for the server side of things.
+// It allows us to read the state from server.js, but not change it.
 function getGuessHistory() {
     let copyOfGuestHistory = guessHistory;
     return copyOfGuestHistory;
@@ -33,6 +39,8 @@ function formatGussesAsNumbers(guessesAsStrings) {
     return guessesAsNumbers;
 }
 
+// This is a 'setter' for the server side of things.
+// We export this funciton, so server.js has a way to update the state.
 function updateGuessHistory(guesses, numberToGuess) {
     // guesses looks like {
     //  playerOne: 6,
@@ -51,6 +59,7 @@ function updateGuessHistory(guesses, numberToGuess) {
     guessHistory.playerThree.push({ guess: guesses.playerThree, direction: playerThreeGuessDirection })
 }
 
+// This is a little hacky, but works well.  I'm storing the 'guess direction' (high or low) as the class I'll add to the guess on the front end.
 function calculatePlayerGuessDirection(guess, numberToGuess) {
     // Note, Always check for a winner before this is called.
     // That way, we don't need to check for guess === numberToGuess
@@ -63,24 +72,8 @@ function calculatePlayerGuessDirection(guess, numberToGuess) {
     }
 }
 
-function checkForWinner(guesses, numberToGuess) {
-
-    console.log('module gusses:', guesses);
-    console.log('module numberToGuess:', numberToGuess);
-
-    let winner = "";
-
-    if (guesses.playerOne === numberToGuess) {
-        winner = 'playerOne';
-    } else if (guesses.playerTwo === numberToGuess) {
-        winner = 'playerTwo';
-    } else if (guesses.playerThree === numberToGuess) {
-        winner = 'playerThree';
-    }
-
-    return winner;
-}
-
+// This is a 'setter' for the server side of things.
+// We export this funciton, so server.js has a way to reset the state.
 function resetGuessHistory() {
     guessHistory = {
         rounds: 0,

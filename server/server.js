@@ -37,6 +37,7 @@ app.post('/guesses', (req, res) => {
 
 app.delete('/guesses', (req, res) => {
   guessStuff.resetGuessHistory();
+  // Reset the target number we are trying to guess.
   numberToGuess = guessStuff.selectNumberToGuess();
   console.log('numberToGuess:', numberToGuess);
   res.sendStatus(204);

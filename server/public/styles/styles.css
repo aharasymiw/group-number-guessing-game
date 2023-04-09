@@ -1,0 +1,23 @@
+.blue-text {
+    color: blue;
+}
+
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
+}
+
+td {
+    text-align: center;
+}
+
+tfoot td {
+    padding-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
